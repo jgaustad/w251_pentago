@@ -72,3 +72,15 @@ def ideal_state(input_mat):
 def boardstate_to_ideal_key(boardstate):
     ideal_state_matrix = ideal_state(boardstate)
     return boardstate_to_key(ideal_state_matrix)
+
+
+def boardstate_to_nn_input(boardstate):
+    ''' returns a 72 length array with positions of player 1 in the first 36 and player 2 in the second 36'''
+    ideal_boardstate = ideal_state(boardstate)
+    flat = copy.copy(ideal_boardstate).flatten()
+    flat1 = copy.copy(flat)
+    flat1[flat1>0] = 0
+    flat1[flat1<0] = 1
+    flat[flat<0] = 0
+
+    return np.concatenate([flat,flat1])
