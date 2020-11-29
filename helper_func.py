@@ -83,4 +83,4 @@ def boardstate_to_nn_input(boardstate):
     flat1[flat1<0] = 1
     flat[flat<0] = 0
 
-    return np.concatenate([flat,flat1])
+    return np.concatenate([flat,flat1]).reshape(1,72)
