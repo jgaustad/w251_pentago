@@ -84,3 +84,13 @@ def boardstate_to_nn_input(boardstate):
     flat[flat<0] = 0
 
     return np.concatenate([flat,flat1]).reshape(1,72)
+
+def boardstate_to_cnn_input(boardstate):
+    ''' returns a 72 length array with positions of player 1 in the first 36 and player 2 in the second 36'''
+    ideal_boardstate = ideal_state(boardstate)
+    bs1 = copy.copy(boardstate)
+    bs2 = copy.copy(boardstate)
+    bs1[bs1<0] = 0
+    bs2[bs2>0] = 0
+    bs2[bs2<0] = 1
+    return np.concatenate([bs1,bs2]).reshape(6,6,2)
