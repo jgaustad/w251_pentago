@@ -10,6 +10,7 @@ We start by describing the general Q-Learning principles that we are trying to c
 
 Reinforcement learning is a powerful tool that will only become more useful as edge computing devices render ever more real-world settings into digital form. Our exploration of Pentago has convinced us that the principles that we have learned and applied to this problem can have significant impact on more than just our World Pentago Champion rating.
 
+
 <left> <h2>General Q-Learning Principles</h2> </left>
 
 Q-Learning was introduced in this class from an autonomous robotics framework.  The general idea is to characterize states and actions in the environment with a Q value.  Given a state (position, velocity, sensor readings, etc) the agent could determine the best available action by looking at q-values.  
@@ -26,9 +27,8 @@ Second, after the move and resulting boardstate is recorded, the environment is 
 
 As previously mentioned, we set out to design our solution from scratch. Starting from zero allowed us to think clearly about the framework that we wanted to use to approach the problem. We chose to build a Python class that would represent the Pentago board, an agent class that we could use to interact with the board game, and a Q table class that we could update as the game progressed. 
 
-![this](figure1.png).
-
-Figure 1: Wire diagram of Pentago board / Agent / Q Table interaction
+<img src="figure1.PNG" width="600" align="center">
+<em>Figure 1: Wire diagram of Pentago board / Agent / Q Table interaction</em>
 
 <left> <h3>Game Board</h3> </left>
 
@@ -68,15 +68,20 @@ The second method was to power the “intelligent agent” with a neural network
 
 The convolutional Neural Network consists of one convolutional layer and two fully connected layers. The input layer consists of an encoded 6 x 6 x 2 board state where the dimension 2 corresponds to each player position in the board, 1 where a marble is placed and 0 otherwise. The convolutional layer has 64 filters. The kernel is 3x3 with stride size 3 so it captures each quadrant of the board state. The fully connected layers have 256 and 128 neurons respectively. The output layer is a single element with the reward assigned to the input state (Figure 2).
 
-Figure 2. Convolutional Neural Network architecture 
+<img src="figure2.PNG" width="600" align="center">
+<em>Figure 2. Convolutional Neural Network architecture</em>
+<br/><br/>
 
 Training is done by using the board state and its reward. As explained in the previous section, the reward is calculated backward after a game is completed with a winner (Figure 3).  A batch is created with up to 100 completed games where there is a winner. All board states that result from each marble placement are included in the batch with their respective reward. The number of games played in the batch are fixed but the number of states vary from game to game.
 
-Figure 3. Board states for 11 moves and rewards discounted backwards.
+<img src="figure3.PNG" width="600" align="center">
+<em>Figure 3. Board states for 11 moves and rewards discounted backwards.</em>
+<br/><br/>
 
 The agent’s strategy is to use the trained network model to infer the rewards from all possible board states from the current boardstate when taking any action. The number of states can be reduced by removing redundant symmetries as explained in the section above.  The model outputs a reward for each of the resultant. The next action will be the one that generates the board state that has the highest reward. Figure 4 is a representation of this process.
 
-Figure 4. Playing by NN Model. All possible resultant board states are coded to be the input for the NN model. The right part shows all calculated rewards from where the maximum value is taken to make a play.
+<img src="figure4.PNG" width="600" align="center">
+<em>Figure 4. Playing by NN Model. All possible resultant board states are coded to be the input for the NN model. The right part shows all calculated rewards from where the maximum value is taken to make a play.</em>
 
 <left> <h2>Training Optimization </h2> </left>
 
@@ -92,7 +97,8 @@ We found that the bottleneck in the training process was the generation of data 
 
 <left> <h2>Results</h2> </left> 
 
-FIGURE 
+<img src="figure5.PNG" width="600" align="center">
+<br/><br/>
 
 Agent 1 was able to beat a random agent after these 50 simulation batches and training over 90% of the time.  We found that extended training did not further converge the neural network.  
 
