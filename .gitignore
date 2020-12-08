@@ -1,0 +1,5 @@
+BERT*
+__pycache__/
+pentago_play_22.ipynb
+pentago_play.ipynb
+*.pickle*
