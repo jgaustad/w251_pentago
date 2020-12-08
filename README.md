@@ -26,6 +26,8 @@ Second, after the move and resulting boardstate is recorded, the environment is 
 
 As previously mentioned, we set out to design our solution from scratch. Starting from zero allowed us to think clearly about the framework that we wanted to use to approach the problem. We chose to build a Python class that would represent the Pentago board, an agent class that we could use to interact with the board game, and a Q table class that we could update as the game progressed. 
 
+![this](figure1.png).
+
 Figure 1: Wire diagram of Pentago board / Agent / Q Table interaction
 
 <left> <h3>Game Board</h3> </left>
